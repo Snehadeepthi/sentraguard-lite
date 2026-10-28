@@ -1,0 +1,76 @@
+{
+  "version": "1",
+  "detectors": ["prompt_injection", "pii", "rag_injection"],
+  "thresholds": { "block_score": 80, "transform_score": 40 },
+  "scoring": {
+    "per_extra_match": 5,
+    "per_extra_tag": 10,
+    "pii_cap": 60
+  },
+  "rules": {
+    "prompt_injection": [
+      {
+        "id": "ignore_previous_instructions",
+        "severity": 90,
+        "pattern": "\\b(ignore|disregard|forget|skip)\\s+(all\\s+|any\\s+)?(of\\s+)?(the\\s+|your\\s+)?(previous|prior|above|earlier|preceding)\\s+(instructions?|prompts?|rules|directions|messages)(?:[^.\\n]|\\.(?=\\S))*"
+      },
+      {
+        "id": "act_as_dan",
+        "severity": 90,
+        "pattern": "\\b(act|acting|behave|pretend)\\s+(as|like|to\\s+be)\\s+(a\\s+|an\\s+)?DAN\\b(?:[^.\\n]|\\.(?=\\S))*|\\bdo\\s+anything\\s+now\\b"
+      },
+      {
+        "id": "jailbreak_mode",
+        "severity": 85,
+        "pattern": "\\b(enable|enter|activate|switch\\s+to)\\s+(developer|god|jailbreak|unrestricted|dev)\\s+mode\\b(?:[^.\\n]|\\.(?=\\S))*|\\bjailbreak\\b"
+      },
+      {
+        "id": "bypass_safety",
+        "severity": 85,
+        "pattern": "\\b(bypass|disable|override|turn\\s+off|ignore)\\s+(your\\s+|the\\s+|all\\s+|any\\s+)?(safety|content\\s+polic(y|ies)|guardrails?|filters?|restrictions)(?:[^.\\n]|\\.(?=\\S))*"
+      },
+      {
+        "id": "reveal_system_prompt",
+        "severity": 70,
+        "pattern": "\\b(reveal|show|print|display|repeat|leak|output|tell\\s+me|what\\s+is|what's)\\s+(me\\s+)?(your|the)\\s+(full\\s+|original\\s+|hidden\\s+|secret\\s+)?(system\\s+prompt|system\\s+message|hidden\\s+instructions|initial\\s+instructions|developer\\s+instructions)(?:[^.\\n]|\\.(?=\\S))*"
+      },
+      {
+        "id": "role_override",
+        "severity": 60,
+        "pattern": "\\byou\\s+are\\s+no\\s+longer\\b(?:[^.\\n]|\\.(?=\\S))*|\\bfrom\\s+now\\s+on,?\\s+you\\s+(are|will|must)\\b(?:[^.\\n]|\\.(?=\\S))*"
+      },
+      {
+        "id": "no_restrictions",
+        "severity": 60,
+        "pattern": "\\b(without|with\\s+no|free\\s+of)\\s+(any\\s+)?(restrictions|filters|guardrails|limitations|censorship)\\b"
+      }
+    ],
+    "rag_injection": [
+      {
+        "id": "role_marker_line",
+        "severity": 70,
+        "pattern": "^[ \\t]*[\\[<#]*[ \\t]*(system|assistant|developer)[ \\t]*[\\]>]*[ \\t]*:.*$"
+      },
+      {
+        "id": "override_policy",
+        "severity": 75,
+        "pattern": "\\b(override|bypass|ignore|disregard)\\s+(the\\s+|all\\s+|any\\s+|your\\s+)?(policy|policies|guidelines|rules|safety\\s+rules)\\b(?:[^.\\n]|\\.(?=\\S))*"
+      },
+      {
+        "id": "addressed_to_model",
+        "severity": 60,
+        "pattern": "\\b(note|instruction|message)\\s+(to|for)\\s+(the\\s+)?(ai|assistant|model|llm|chatbot)\\b(?:[^.\\n]|\\.(?=\\S))*|\\b(when|if)\\s+(you|the\\s+(ai|assistant|model))\\s+(read|see|process|summari[sz]e)\\s+this\\b(?:[^.\\n]|\\.(?=\\S))*"
+      },
+      {
+        "id": "data_exfiltration",
+        "severity": 85,
+        "pattern": "\\b(send|forward|email|post|upload|exfiltrate)\\s+(the\\s+|all\\s+|this\\s+|any\\s+)?(conversation|chat\\s+history|user\\s+data|credentials|passwords?|api\\s+keys?|secrets|tokens)\\b(?:[^.\\n]|\\.(?=\\S))*"
+      },
+      {
+        "id": "hidden_html_comment",
+        "severity": 70,
+        "pattern": "<!--(?:(?!-->)[\\s\\S])*?\\b(ignore|instructions?|system|assistant|you\\s+must|override)\\b[\\s\\S]*?-->"
+      }
+    ]
+  }
+}

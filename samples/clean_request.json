@@ -1,0 +1,14 @@
+{
+  "prompt": "Summarize our refund policy in two sentences.",
+  "context_docs": [
+    {
+      "id": "doc-1",
+      "text": "Refunds are issued within 14 days of purchase for unused items."
+    }
+  ],
+  "metadata": {
+    "app_id": "support-bot",
+    "user_id": "u-123",
+    "request_id": "req-002"
+  }
+}

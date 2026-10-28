@@ -1,0 +1,7 @@
+# Runtime
+fastapi==0.162.0
+uvicorn==0.54.0
+pydantic==2.13.5
+# Test-only (kept here so `docker compose run --rm api pytest -q` works)
+pytest==9.1.1
+httpx==0.28.1
