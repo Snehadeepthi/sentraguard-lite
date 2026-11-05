@@ -237,15 +237,7 @@ Dockerfile.api, Dockerfile.ui, docker-compose.yml
 
 Extra: false-positive guards, Unicode/zero-width evasion, decision thresholds, transform output, no PII in evidence or logs, determinism, exactly-2-routes, duplicate doc ids (400), unknown fields, CLI success and error paths.
 
-## Demo
-
-<!-- Replace with your hosted URLs or recording link -->
-- Hosted UI: _TODO_
-- Hosted API: _TODO_
-- Screen recording: _TODO_
-
 ## AI tools usage
 
-<!-- Edit this section so it is accurate for you. -->
-- **Used for**: I used Claude (Anthropic) as a coding assistant to scaffold the project structure, draft the regex rules and the test suite, and draft this README.
-- **Personally implemented / can explain**: _describe here what you designed, changed, or verified yourself — e.g. the scoring formula, rule tuning, threshold choices, the safe error handler, the Docker setup, and running/fixing the tests._
+- **Claude (Anthropic)** was used as a coding assistant to generate the initial project scaffold and draft the code, tests and README.
+- I have implemented and worked on the scoring formula, rule tuning, threshold choices, the safe error handler, the Docker setup, and running/fixing the tests.
